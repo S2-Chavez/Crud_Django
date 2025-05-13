@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Minhas Tarefas</h1>
+  <a href="{% url 'tarefas:create' %}">+ Nova Tarefa</a>
+  <ul>
+    {% for obj in object_list %}
+      <li>
+        <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
+        (<a href="{% url 'tarefas:update' obj.pk %}">editar</a>,
+         <a href="{% url 'tarefas:delete' obj.pk %}">excluir</a>)
+      </li>
+    {% empty %}
+      <li>Nenhuma tarefa cadastrada.</li>
+    {% endfor %}
+  </ul>
+
+  {% if is_paginated %}
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">« primeira</a>
+        <a href="?page={{ page_obj.previous_page_number }}">‹ anterior</a>
+      {% endif %}
+      <span>página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">próxima ›</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">última »</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

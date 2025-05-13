@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ object.title }}</h1>
+  <p>{{ object.descricao }}</p>
+  <p>Criado em: {{ object.created_at }}</p>
+  <p>Atualizado em: {{ object.updated_at }}</p>
+  <a href="{% url 'tarefas:update' object.pk %}">Editar</a> |
+  <a href="{% url 'tarefas:list' %}">Voltar</a>
+{% endblock %}
